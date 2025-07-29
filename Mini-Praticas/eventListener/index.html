@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventListener</title>
+</head>
+
+<body>
+    <h2>Sorteador de Números</h2>
+
+    <label>Mínimo: <input type="number" id="min"></label>
+    <label>Máximo: <input type="number" id="max"></label>
+    <br>
+    <button id="sortear">Sortear</button>
+    <button id="reset">Resetar</button>
+
+    <h3 id="resultado">Resultado: </h3>
+
+    <script>
+        let valorMin = document.querySelector('#min')
+        let valorMax = document.querySelector('#max')
+        let Sortear = document.querySelector('#sortear')
+        let resetar = document.querySelector('#reset')
+        let result = document.querySelector('#resultado')
+
+        Sortear.addEventListener('click', () => {
+            let min = Number(valorMin.value)
+            console.log(typeof (min))
+            let max = Number(valorMax.value)
+            console.log(typeof (max))
+
+            result.textContent = `Resultado: ${Math.floor(Math.random() * (max - min + 1)) + min}`
+            console.log(Math.random() * (max - min) + min)
+            console.log(typeof (min))
+            console.log(typeof (max))
+        })
+
+
+        resetar.addEventListener('click', () => {
+            valorMin.value = "";
+            valorMax.value = "";
+            result.textContent = "Resultado:";
+            result.style.color = "black";
+        });
+
+
+    </script>
+
+</body>
+
+</html>
