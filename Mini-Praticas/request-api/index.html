@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clima</title>
+</head>
+
+<body>
+    <h2>Clima em Luanda</h2>
+    <p id="clima">Carregando...</p>
+
+
+    <script>
+
+        async function buscarClima() {
+            const url = "https://api.open-meteo.com/v1/forecast?latitude=-8.83&longitude=13.24&current_weather=true";
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                const clima = data.current_weather;
+                const temp = clima.temperature;
+                const vento = clima.windspeed
+
+                let result = document.getElementById('clima').innerHTML = `<strong>Temp:</strong> ${clima.temperature}°c <strong>|</strong> <strong>vento:</strong> ${clima.windspeed}km/h`
+
+            } catch (err) {
+                document.getElementById("clima").textContent = "Erro ao buscar dados do clima.";
+                console.error(err);
+            }
+
+            /*
+            fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                const clima = data.current_weather;
+                const temp = clima.temperature;
+                const vento = clima.windspeed
+
+                let result = document.getElementById('clima').textContent = `Temp:${clima.temperature}°C Vento: ${clima.windspeed}km/h`
+            })
+            .catch(err => {
+                console.log(err)
+            })
+            */
+
+        }
+
+        buscarClima();
+    </script>
+</body>
+
+</html>
