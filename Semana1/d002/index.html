@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>D002</title>
+</head>
+
+<body>
+    <h2>Lista Interativa</h2>
+    <input type="text" id="inputItem" placeholder="Digite algo...">
+    <button id="addBtn">Adicionar</button>
+
+    <ul id="lista">
+        
+    </ul>
+
+
+    <script>
+        const addBtn = document.getElementById('addBtn');
+        const input = document.getElementById('inputItem');
+        const lista = document.getElementById('lista');
+
+        addBtn.addEventListener('click', () => {
+            const texto = input.value.trim();
+
+            if (texto === "") return; // não adiciona se estiver vazio
+
+            // 1. Criar o <li>
+            const li = document.createElement('li');
+            li.classList.add('item'); // classe com animação de entrada
+            li.textContent = texto;
+
+            // 2. Criar botão de remover
+            const btnRemover = document.createElement('button');
+            btnRemover.textContent = 'Remover';
+            btnRemover.classList.add('remover');
+
+            // 3. Evento de remover com animação
+            btnRemover.addEventListener('click', () => {
+                li.classList.add('removendo'); // adiciona classe de saída
+
+                // espera a animação terminar antes de remover do DOM
+                setTimeout(() => {
+                    lista.removeChild(li);
+                }, 500); // tempo deve bater com a animação no CSS
+            });
+
+            // 4. Adiciona o botão ao <li>
+            li.appendChild(btnRemover);
+
+            // 5. Adiciona o <li> na lista
+            lista.appendChild(li);
+
+            // limpa o input
+            input.value = '';
+        });
+    </script>
+
+
+</body>
+
+</html>
