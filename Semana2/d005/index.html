@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login com LocalStorage</title>
+
+    <style>
+        body {
+            background-color: #eee;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80dvh;
+            width: 97dvw;
+        }
+
+        .session-cadastro {
+            display: block;
+        }
+
+        .session-login {
+            display: none;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            width: 400px;
+            height: 400px;
+            background-color: cornflowerblue;
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 2em;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+        }
+
+        .erro {
+            color: red;
+            text-align: center;
+        }
+
+        .succes {
+            color: rgb(51, 255, 0);
+            text-align: center;
+        }
+
+        button {
+            padding: 10px;
+            width: 95%;
+        }
+
+        a {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form id="formulario">
+            <h2>
+                Cadastro
+            </h2>
+            <input type="email" id="email" placeholder="Email:">
+            <input type="password" id="password" placeholder="Senha:">
+            <span id="erro-credenciais"></span>
+
+            <button type="submit">Criar</button>
+            <a href="login.html">já tenho uma conta. Entrar.</a>
+        </form>
+    </div>
+
+    <script>
+        const form = document.querySelector('#formulario');
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+
+            const email = document.querySelector('#email').value;
+            const password = document.querySelector('#password').value;
+            let erro = document.querySelector('#erro-credenciais');
+            console.log(`email: ${email} senha: ${password}`)
+
+            if (email == '' && password == '') {
+                erro.classList.add('erro');
+                erro.innerHTML = 'Campo vazio invalido!'
+            } else if (password.length < 3) {
+                erro.classList.add('erro');
+                erro.innerHTML = 'A senha deve conter no minimo 3 letras!'
+            } else {
+                erro.innerHTML = ''
+                erro.classList.remove('erro')
+                erro.classList.add("sucess");
+
+                const users = [{
+                    email: email,
+                    senha: password,
+                }];
+
+                localStorage.setItem("users", JSON.stringify(users));
+                console.log(users)
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

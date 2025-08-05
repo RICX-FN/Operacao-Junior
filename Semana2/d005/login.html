@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login com LocalStorage</title>
+
+    <style>
+        body {
+            background-color: #eee;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80dvh;
+            width: 97dvw;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            width: 400px;
+            height: 400px;
+            background-color: cornflowerblue;
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 2em;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+        }
+
+        .erro {
+            color: red;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px;
+            width: 95%;
+        }
+
+        a {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form id="form-login">
+            <h2>
+                Login
+            </h2>
+            <input type="email" id="email" placeholder="Email:">
+            <input type="password" id="password" placeholder="Senha:">
+            <span id="erro-credenciais"></span>
+
+            <button type="submit">Entrar</button>
+            <a href="index.html">Não tenho uma conta. Criar.</a>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('form-login').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const email = document.querySelector('#email').value;
+            const password = document.querySelector('#password').value;
+            let erro = document.querySelector('#erro-credenciais');
+
+            //debugando os valores de email e senha
+            console.log(`email: ${email} senha: ${password}`)
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            const userFound = users.find(user =>
+                user.email === email && user.senha === password
+            );
+
+            if (userFound) {
+                localStorage.setItem('logado', 'true');
+                localStorage.setItem("userLogged", userFound.email)
+                //flag guardada, nesse caso (true) => find retorna um valor boolean (true or false)
+
+                // Aqui pode redirecionar para a dashboard
+                window.location.href = "dashboard.html";
+            } else {
+                erro.innerHTML = 'Credenciais invalidas!'
+                erro.classList.add('erro')
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>

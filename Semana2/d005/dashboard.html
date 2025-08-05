@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        button {
+            padding: 8px 16px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Bem-vindo à sua área logada!</h1>
+    <p>Apenas usuários autenticados podem ver esta página.</p>
+
+    <p id="userLog"></p>
+    <button id="btn-logout">Sair</button>
+</body>
+<script>
+    const isLogged = localStorage.getItem("logado")
+
+    if (isLogged !== 'true') {
+        alert('Você precisa estar logado para estar aqui.')
+        location.href = 'login.html';
+    }
+
+    // 🆕 Mostrar o email
+    const emailUser = localStorage.getItem("userLogged");
+    document.getElementById("userLog").textContent = `Usuário logado: ${emailUser}`;
+
+    // Função de logout
+    document.getElementById("btn-logout").addEventListener("click", () => {
+        localStorage.setItem("logado", "false");
+        localStorage.removeItem("userLogged"); // remove o email
+        window.location.href = "login.html";
+    });
+</script>
+
+</html>
